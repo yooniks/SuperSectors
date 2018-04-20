@@ -52,7 +52,24 @@
     </resources>
   </build>
 
-  <repositories><repository><id>spigotmc-repo</id><url>https://hub.spigotmc.org/nexus/content/groups/public/</url></repository><repository><id>sonatype</id><url>https://oss.sonatype.org/content/groups/public/</url></repository></repositories>
+  <repositories>
+    <repository>
+      <id>spigotmc-repo</id>
+      <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+    </repository>
+    <repository>
+      <id>sonatype</id>
+      <url>https://oss.sonatype.org/content/groups/public/</url>
+    </repository>
+    <repository>
+      <id>socketbyte-repo</id>
+      <url>http://repo.socketbyte.pl/repository/nexus-releases</url>
+    </repository>
+    <repository>
+      <id>socketbyte-repo</id>
+      <url>http://repo.socketbyte.pl/repository/nexus-releases</url>
+    </repository>
+  </repositories>
 
   <dependencies>
         <dependency>
@@ -60,6 +77,24 @@
             <artifactId>lombok</artifactId>
             <version>1.16.16</version>
             <scope>provided</scope>
-        </dependency><dependency><groupId>org.spigotmc</groupId><artifactId>spigot-api</artifactId><version>1.8.8-R0.1-SNAPSHOT</version><scope>provided</scope></dependency>
+        </dependency>
+    <dependency>
+        <groupId>org.spigotmc</groupId>
+        <artifactId>spigot-api</artifactId>
+        <version>1.8.8-R0.1-SNAPSHOT</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>pl.socketbyte</groupId>
+        <artifactId>OpenSectorLinker</artifactId>
+        <version>1.2</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>pl.socketbyte</groupId>
+        <artifactId>OpenSectorSystem</artifactId>
+        <version>1.4</version>
+        <scope>provided</scope>
+      </dependency>
   </dependencies>
 </project>
