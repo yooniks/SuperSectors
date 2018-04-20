@@ -1,0 +1,5 @@
+name: 'ToolsSystem'
+version: ${project.version}
+main: 'xyz.yooniks.toolssystem.ToolsSystem'
+authors: [yooniks]
+description: 'Plugin na toolsy pod opensectors'

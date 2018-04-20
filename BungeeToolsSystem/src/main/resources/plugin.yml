@@ -1,0 +1,4 @@
+name: 'BungeeToolsSystem'
+version: ${project.version}
+main: 'xyz.yooniks.bungeetools.BungeeTools'
+description: 'Plugin na toolsy pod bungee pod opensectors'
