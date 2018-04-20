@@ -8,7 +8,7 @@ public final class ToolsSystem extends JavaPlugin {
     @Override
     public void onEnable() {
         final PluginManager pm = this.getServer().getPluginManager();
-        if (!pm.getPlugin("OpenSectorLinker").isEnabled()) {
+        if (!pm.isPluginEnabled("OpenSectorLinker")) {
             this.getLogger().warning("\n *** Plugin \"OpenSectorLinker\" is not enabled! *** \n" +
                                             "*** This plugin will not work without this plugin! Disabling.. *** \n");
             this.getPluginLoader().disablePlugin(this);
