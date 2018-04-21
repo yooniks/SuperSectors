@@ -14,6 +14,7 @@ import pl.socketbyte.opensectors.linker.sector.SectorManager;
 import pl.socketbyte.opensectors.linker.util.NetworkManager;
 import pl.socketbyte.opensectors.linker.util.PlayerTransferHolder;
 import xyz.yooniks.toolssystem.command.SpawnCommand;
+import xyz.yooniks.toolssystem.manager.SpawnManager;
 import xyz.yooniks.toolssystem.util.ChatUtil;
 
 public final class ToolsSystem extends JavaPlugin {
@@ -29,8 +30,12 @@ public final class ToolsSystem extends JavaPlugin {
             return;
         }
 
+        new SpawnManager(this); //maybe i will add it as a field
+
         final BukkitCommands bukkitCommands = new BukkitCommands(this);
         bukkitCommands.register(new SpawnCommand());
+
+
     }
 
     @Override

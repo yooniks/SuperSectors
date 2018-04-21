@@ -14,6 +14,8 @@ import pl.socketbyte.opensectors.linker.OpenSectorLinker;
 import pl.socketbyte.opensectors.linker.sector.Sector;
 import pl.socketbyte.opensectors.linker.sector.SectorManager;
 import xyz.yooniks.toolssystem.ToolsSystem;
+import xyz.yooniks.toolssystem.basic.User;
+import xyz.yooniks.toolssystem.basic.util.UserUtil;
 import xyz.yooniks.toolssystem.task.SpawnTeleportTask;
 import xyz.yooniks.toolssystem.util.LocationUtil;
 
@@ -44,14 +46,20 @@ public class SpawnsInventoryGUI extends GUIExtender {
             final Sector spawnBySlot = this.spawnsBySlots.get(slot);
             if (spawnBySlot == null) return;
 
-            final Player p = (Player) e.getWhoClicked();
+            final Player player = (Player) e.getWhoClicked();
             final Sector current = SectorManager.INSTANCE.getSectorMap()
                     .get(OpenSectorLinker.getServerId());
             if (spawnBySlot.getServerController().id == current.getServerController().id) {
-                p.sendMessage(ChatColor.RED + "You are already at this spawn!");
+                player.sendMessage(ChatColor.RED + "You are already at this spawn!");
                 return;
             }
-            new SpawnTeleportTask(p, spawnBySlot, plugin);
+
+            final User user = UserUtil.getOrCreateUser(player);
+            if (user.getSpawnTeleportTask().isPresent()) {
+                player.sendMessage(ChatColor.RED + "You are already teleporting!");
+                return;
+            }
+            user.setSpawnTeleportTask(new SpawnTeleportTask(player, spawnBySlot, plugin));
         }
     }
 
@@ -59,9 +67,9 @@ public class SpawnsInventoryGUI extends GUIExtender {
         for (int slot : this.spawnsBySlots.keySet()) {
             final Sector sector = this.spawnsBySlots.get(slot);
             final ItemBuilder builder = new ItemBuilder(Material.WOOL)
-                    .setName("&7Sektor: &a" + sector.getServerController().name)
-                    .setLore(Arrays.asList("&7Wielkosc sektoru: &6" + sector.getSize(),
-                            "&7Koordynaty srodka: &6" + LocationUtil.locationToString(sector.getCenter())));
+                    .setName("&7Sector's name: &a" + sector.getServerController().name)
+                    .setLore(Arrays.asList("&7Size of sector: &6" + sector.getSize(),
+                            "&7Coordinates of center: &6" + LocationUtil.locationToString(sector.getCenter())));
             this.setItem(slot, builder);
         }
         this.updateInventory();
