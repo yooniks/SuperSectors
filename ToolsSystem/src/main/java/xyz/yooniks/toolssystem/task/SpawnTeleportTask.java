@@ -23,6 +23,8 @@ public class SpawnTeleportTask extends BukkitRunnable {
         this.player = player;
         this.spawn = spawn;
         this.startLocation = player.getLocation().clone();
+
+        this.runTaskTimerAsynchronously(plugin, 0L, 20L);
     }
 
     @Override
