@@ -14,7 +14,7 @@ public class SpawnCommand implements CommandExecutor {
     @GameOnly
     public void execute(CommandSender cs, CommandArguments commandArguments) {
         final Player player = (Player) cs;
-        player.openInventory(SpawnManager.INSTANCE.getInventory());
+        SpawnManager.INSTANCE.getSpawnsGUI().openInventory(player);
     }
 
     //https://github.com/whippytools/bukkit-commands

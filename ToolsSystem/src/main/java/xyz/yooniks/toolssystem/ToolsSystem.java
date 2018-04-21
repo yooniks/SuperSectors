@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import pl.bmstefanski.commands.BukkitCommands;
 import pl.socketbyte.opensectors.linker.OpenSectorLinker;
 import pl.socketbyte.opensectors.linker.json.controllers.ServerController;
 import pl.socketbyte.opensectors.linker.packet.PacketPlayerInfo;
@@ -12,13 +13,10 @@ import pl.socketbyte.opensectors.linker.sector.Sector;
 import pl.socketbyte.opensectors.linker.sector.SectorManager;
 import pl.socketbyte.opensectors.linker.util.NetworkManager;
 import pl.socketbyte.opensectors.linker.util.PlayerTransferHolder;
+import xyz.yooniks.toolssystem.command.SpawnCommand;
 import xyz.yooniks.toolssystem.util.ChatUtil;
 
 public final class ToolsSystem extends JavaPlugin {
-
-    public static OpenSectorLinker getOpenSectorLinker() {
-        return OpenSectorLinker.getInstance();
-    }
 
     @Override
     public void onEnable() {
@@ -31,10 +29,16 @@ public final class ToolsSystem extends JavaPlugin {
             return;
         }
 
+        final BukkitCommands bukkitCommands = new BukkitCommands(this);
+        bukkitCommands.register(new SpawnCommand());
     }
 
     @Override
     public void onDisable() {
+    }
+
+    public static OpenSectorLinker getOpenSectorLinker() {
+        return OpenSectorLinker.getInstance();
     }
 
     public void sendTransferRequest(Player player, Sector to) {
