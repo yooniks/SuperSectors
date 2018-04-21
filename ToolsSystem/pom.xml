@@ -52,23 +52,28 @@
     </resources>
   </build>
 
-  <repositories>
-    <repository>
-      <id>spigotmc-repo</id>
-      <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+    <repositories>
+      <repository>
+        <id>spigotmc-repo</id>
+        <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
     </repository>
     <repository>
-      <id>sonatype</id>
-      <url>https://oss.sonatype.org/content/groups/public/</url>
+        <id>sonatype</id>
+        <url>https://oss.sonatype.org/content/groups/public/</url>
     </repository>
-    <repository>
-      <id>socketbyte-repo</id>
-      <url>http://repo.socketbyte.pl/repository/nexus-releases</url>
-    </repository>
-    <repository>
-      <id>socketbyte-repo</id>
-      <url>http://repo.socketbyte.pl/repository/nexus-releases</url>
-    </repository>
+
+      <repository>
+          <id>opengui</id>
+          <url>http://repo.socketbyte.pl/repository/nexus-releases</url>
+      </repository>
+      <repository>
+          <id>socketbyte-repo</id>
+          <url>http://repo.socketbyte.pl/repository/nexus-releases</url>
+      </repository>
+      <repository>
+          <id>jitpack.io</id>
+          <url>https://jitpack.io</url>
+      </repository>
   </repositories>
 
   <dependencies>
@@ -96,5 +101,16 @@
         <version>1.4</version>
         <scope>provided</scope>
       </dependency>
+    <dependency>
+        <groupId>pl.socketbyte</groupId>
+        <artifactId>opengui</artifactId>
+        <version>1.2</version>
+        <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.whippytools</groupId>
+      <artifactId>bukkit-commands</artifactId>
+      <version>1.5</version>
+    </dependency>
   </dependencies>
 </project>
