@@ -6,17 +6,13 @@ import pl.bmstefanski.commands.CommandArguments;
 import pl.bmstefanski.commands.CommandExecutor;
 import pl.bmstefanski.commands.annotation.Command;
 import pl.bmstefanski.commands.annotation.GameOnly;
-import xyz.yooniks.toolssystem.manager.SpawnManager;
 
-public class SpawnCommand implements CommandExecutor {
+public class MsgCommand implements CommandExecutor {
 
-    @Command(name = "spawn")
+    @Command(name = "spawn", min = 2)
     @GameOnly
-    public void execute(CommandSender cs, CommandArguments commandArguments) {
+    public void execute(CommandSender cs, CommandArguments args) {
         final Player player = (Player) cs;
-        SpawnManager.getInstance().getSpawnsGUI().openInventory(player);
     }
-
-    //https://github.com/whippytools/bukkit-commands
 
 }

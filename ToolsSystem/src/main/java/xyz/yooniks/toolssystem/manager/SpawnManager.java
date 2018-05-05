@@ -14,23 +14,23 @@ import java.util.Map;
 
 public class SpawnManager {
 
-    public static SpawnManager INSTANCE;
+    @Getter
+    public static SpawnManager instance;
     @Getter
     private final List<Sector> spawns = new LinkedList<>();
     @Getter
     private final SpawnsInventoryGUI spawnsGUI;
 
     public SpawnManager(ToolsSystem plugin) {
-        INSTANCE = this;
-
+        instance = this;
         final FileConfiguration cf = plugin.getConfig();
-        final List<String> sectors_by_id = cf.getStringList("spawn-sectors-by-id");
+        final List<String> sectorsByID = cf.getStringList("spawn-sectors-by-id");
 
         final Map<Integer, Sector> spawns = new LinkedHashMap<>();
         final SectorManager sectorManager = SectorManager.INSTANCE;
         for (Integer id : sectorManager.getSectorMap().keySet()) {
             final Sector sector = sectorManager.getSectorMap().get(id);
-            if (sectors_by_id.contains(id.toString())) {
+            if (sectorsByID.contains(id.toString())) {
                 spawns.put(id, sector);
             }
         }

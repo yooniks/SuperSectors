@@ -1,5 +1,6 @@
 package xyz.yooniks.toolssystem;
 
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -15,13 +16,20 @@ import pl.socketbyte.opensectors.linker.util.NetworkManager;
 import pl.socketbyte.opensectors.linker.util.PlayerTransferHolder;
 import xyz.yooniks.toolssystem.command.SpawnCommand;
 import xyz.yooniks.toolssystem.manager.SpawnManager;
+import xyz.yooniks.toolssystem.user.UserManager;
 import xyz.yooniks.toolssystem.util.ChatUtil;
 
 public final class ToolsSystem extends JavaPlugin {
 
+    @Getter
+    private final UserManager userManager;
+
+    public ToolsSystem() {
+        this.userManager = new UserManager();
+    }
+
     @Override
     public void onEnable() {
-        final PluginManager pm = this.getServer().getPluginManager();
         final OpenSectorLinker openSectorLinker = OpenSectorLinker.getInstance();
         if (openSectorLinker == null) {
             this.getLogger().warning("\n *** Plugin \"OpenSectorLinker\" is not enabled! *** \n" +
@@ -29,11 +37,12 @@ public final class ToolsSystem extends JavaPlugin {
             this.getPluginLoader().disablePlugin(this);
             return;
         }
-
-        new SpawnManager(this); //maybe i will add it as a field
+        new SpawnManager(this); //maybe.. as field?
 
         final BukkitCommands bukkitCommands = new BukkitCommands(this);
         bukkitCommands.register(new SpawnCommand());
+
+        final PluginManager pm = this.getServer().getPluginManager();
 
 
     }
@@ -47,8 +56,8 @@ public final class ToolsSystem extends JavaPlugin {
     }
 
     public void sendTransferRequest(Player player, Sector to) {
-        int x = player.getLocation().getBlockX(), z = player.getLocation().getBlockZ();
-        ServerController current = SectorManager.INSTANCE.getSectorMap()
+        final int x = player.getLocation().getBlockX(), z = player.getLocation().getBlockZ();
+        final ServerController current = SectorManager.INSTANCE.getSectorMap()
                 .get(OpenSectorLinker.getServerId())
                 .getServerController();
 
@@ -61,17 +70,17 @@ public final class ToolsSystem extends JavaPlugin {
 
         PlayerTransferHolder.getTransfering().add(player.getUniqueId());
 
-        PacketPlayerTransfer packet = new PacketPlayerTransfer();
+        final PacketPlayerTransfer packet = new PacketPlayerTransfer();
         packet.setPlayerUniqueId(player.getUniqueId().toString());
         packet.setServerId(to.getServerController().id);
 
-        PacketPlayerInfo packetPlayerInfo = new PacketPlayerInfo(player, x, z);
+        final PacketPlayerInfo packetPlayerInfo = new PacketPlayerInfo(player, x, z);
 
         packet.setPlayerInfo(packetPlayerInfo);
 
         NetworkManager.sendTCPSync(packet);
 
-        Bukkit.getServer().getScheduler().runTaskLater(OpenSectorLinker.getInstance(),
-                () -> PlayerTransferHolder.getTransfering().remove(player.getUniqueId()), 10);
+        Bukkit.getServer().getScheduler().runTaskLater(OpenSectorLinker.getInstance(), () ->
+                PlayerTransferHolder.getTransfering().remove(player.getUniqueId()), 10);
     }
 }
