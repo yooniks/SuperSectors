@@ -15,7 +15,8 @@ import java.util.Map;
 public class SpawnManager {
 
     @Getter
-    public static SpawnManager instance;
+    private static SpawnManager instance;
+
     @Getter
     private final List<Sector> spawns = new LinkedList<>();
     @Getter
